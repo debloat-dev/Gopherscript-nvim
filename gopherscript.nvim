@@ -1,0 +1,47 @@
+"Description: Vim syntax file for Gopherscript.
+"Author And By Extension Maintainer: Ardente
+"Latest Revision: 2022-04-08
+if exists("b:current_syntax")
+	finish
+endif
+
+let b:current_syntax="gopherscript"
+
+syn keyword gsKyw if else require for assign switch
+syn keyword gsFn fn
+syn match gsBinop '\v[<>!]=\.?'
+syn match gsBinop '\v[+/*\-]\.?'
+syn match gsEqual '='
+syn match gsBinop '=='
+syn keyword gsBinop in keyof
+syn match gsDigit '\d\+'
+syn match gsDigit '[-+]\d\+'
+syn keyword gsBools true false nil
+syn match gsClosure '[\[\]\(\){}]'
+syn match gsPunctuation '[\,\;\:]'
+syn region gsStr start=/\v"/ skip=/\v\\./ end=/\v"/ contains=gsstrbs
+syn match gsstrbs '\v\\.' contained
+syn region gsBlock start="{" end="}" fold transparent
+syn match gsNetwork /\vhttps?:\/\/[^\n\t ]+/
+"simpler regex but might be prone to accidental matches?
+"could add gopher easily, if we feel like supporting that
+syn match gsSymbol '\v\$[0-9a-zA-Z_\-]+'
+syn match gsComment '\v#.*$'
+hi def link gsDigit		Number
+hi def link gsBools		Boolean
+hi def link gsStr		String
+hi def link gsFn		Function
+hi def link gsKyw		Statement
+hi def link gsEqual		Label
+hi def link gsNetwork		Underlined
+hi def link gsBinop		Operator
+hi def link gsstrbs		SpecialChar
+hi def link gsSymbol		Operator
+"Identifier
+hi def link gsClosure		Structure
+"^good enough.
+
+hi def link gsPunctuation	String
+"^lone characters, keep variety in the color palette, hard to confuse for a
+"string
+hi def link gsComment		Comment
